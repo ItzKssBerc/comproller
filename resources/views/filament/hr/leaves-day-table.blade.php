@@ -1,0 +1,1 @@
+@livewire(\App\Livewire\Hr\LeaveDayTable::class, ['date' => $date])
