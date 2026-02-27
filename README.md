@@ -7,7 +7,7 @@
 <p align="center">
     <img src="https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Version">
     <img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Version">
-    <img src="https://img.shields.io/badge/Filament-v3-FFA116?style=for-the-badge&logo=filament&logoColor=white" alt="Filament Version">
+    <img src="https://img.shields.io/badge/Filament-v5-FFA116?style=for-the-badge&logo=filament&logoColor=white" alt="Filament Version">
     <img src="https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind Version">
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
 </p>
@@ -30,7 +30,7 @@
 ## 🛠️ Tech Stack
 
 - **Framework**: [Laravel 12+](https://laravel.com)
-- **Admin Panel**: [Filament v3](https://filamentphp.com)
+- **Admin Panel**: [Filament v5](https://filamentphp.com)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com)
 - **Frontend**: [Livewire](https://livewire.laravel.com)
 - **Database**: PostgreSQL / MySQL / SQLite
