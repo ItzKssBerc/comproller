@@ -12,6 +12,7 @@ class Attendance extends Model
         'clock_in_at',
         'clock_out_at',
         'is_processed',
+        'payroll_id',
     ];
 
     protected function casts(): array
@@ -26,5 +27,10 @@ class Attendance extends Model
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function payroll(): BelongsTo
+    {
+        return $this->belongsTo(Payroll::class);
     }
 }

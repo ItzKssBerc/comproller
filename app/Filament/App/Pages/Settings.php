@@ -2,17 +2,16 @@
 
 namespace App\Filament\App\Pages;
 
-use Filament\Schemas\Components\Section;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Actions\Action;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 class Settings extends Page implements HasForms
 {
@@ -47,11 +46,11 @@ class Settings extends Page implements HasForms
     {
         return $schema
             ->components([
-                Section::make(__('Company Profile Customization'))
-                    ->description(__('Here you can modify the company name and login details for the main account.'))
+                Section::make(__('Profile Customization'))
+                    ->description(__('Here you can modify your profile details and language.'))
                     ->schema([
                         TextInput::make('name')
-                            ->label(__('Company Name'))
+                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
 
@@ -75,8 +74,8 @@ class Settings extends Page implements HasForms
                             ->label(__('New Password'))
                             ->password()
                             ->minLength(8)
-                            ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                            ->dehydrated(fn($state) => filled($state))
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => filled($state))
                             ->same('passwordConfirmation')
                             ->helperText(__('Leave blank if you do not want to change your password.')),
 
@@ -89,13 +88,13 @@ class Settings extends Page implements HasForms
                     ->footerActions([
                         Action::make('save')
                             ->label(__('Save'))
-                            ->submit('submit')
+                            ->submit('save'),
                     ]),
             ])
             ->statePath('data');
     }
 
-    public function submit(): void
+    public function save(): void
     {
         $data = $this->form->getState();
 
@@ -109,7 +108,6 @@ class Settings extends Page implements HasForms
 
         auth()->user()->update($data);
 
-        // Notify the user that their data was saved
         Notification::make()
             ->success()
             ->title(__('Successful save'))

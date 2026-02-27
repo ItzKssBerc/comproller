@@ -10,13 +10,6 @@ class ShiftDistributionChart extends ChartWidget
 {
     protected static ?int $sort = 2;
 
-    protected int|string|array $columnSpan = [
-        'md' => 1,
-        'lg' => 1,
-    ];
-
-    protected ?string $heading = 'Műszak eloszlás';
-
     public function getHeading(): string
     {
         return __('Shift Distribution');

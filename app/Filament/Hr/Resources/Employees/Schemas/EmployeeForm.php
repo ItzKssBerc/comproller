@@ -2,22 +2,23 @@
 
 namespace App\Filament\Hr\Resources\Employees\Schemas;
 
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 use Filament\Forms\Components\DatePicker;
-use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Components\Placeholder;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\HtmlString;
-use BaconQrCode\Writer;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\Image\SvgImageBackEnd;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 
 class EmployeeForm
 {
@@ -36,13 +37,13 @@ class EmployeeForm
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                                    ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                                 TextInput::make('first_name')
                                     ->label(__('First Name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                                    ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                                 DatePicker::make('date_of_birth')
                                     ->label(__('Date of Birth')),
                                 TextInput::make('mothers_name')
@@ -79,11 +80,11 @@ class EmployeeForm
                                 TextInput::make('tax_number')
                                     ->label(__('Tax Number'))
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                                    ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                                 TextInput::make('social_security_number')
                                     ->label(__('Social Security Number'))
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                                    ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                                 TextInput::make('bank_account_number')
                                     ->label(__('Bank Account Number')),
                             ])
@@ -107,12 +108,12 @@ class EmployeeForm
                             ->label(__('Citizenship'))
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                            ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                         TextInput::make('id_card_number')
                             ->label(__('ID Card Number'))
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                            ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),
@@ -132,12 +133,12 @@ class EmployeeForm
                             ->native(false)
                             ->columnSpanFull()
                             ->live()
-                            ->afterStateUpdated(fn($set, $get) => self::updateQrCodeHash($set, $get)),
+                            ->afterStateUpdated(fn ($set, $get) => self::updateQrCodeHash($set, $get)),
 
                         TextInput::make('device_identifier')
                             ->label(__('Device Identifier'))
-                            ->visible(fn($get) => in_array($get('identification_device'), ['rfid', 'nfc', 'id_card']))
-                            ->required(fn($get) => in_array($get('identification_device'), ['rfid', 'nfc', 'id_card']))
+                            ->visible(fn ($get) => in_array($get('identification_device'), ['rfid', 'nfc', 'id_card']))
+                            ->required(fn ($get) => in_array($get('identification_device'), ['rfid', 'nfc', 'id_card']))
                             ->maxLength(255)
                             ->columnSpanFull(),
 
@@ -149,8 +150,21 @@ class EmployeeForm
 
                         Placeholder::make('qr_code_preview')
                             ->label(__('QR Code Preview'))
-                            ->content(fn($get) => self::generateQrCodeSvg($get('qr_code_hash')))
-                            ->visible(fn($get) => $get('identification_device') === 'qr_code' && $get('qr_code_hash')),
+                            ->content(fn ($get) => self::generateQrCodeSvg($get('qr_code_hash')))
+                            ->visible(fn ($get) => $get('identification_device') === 'qr_code' && $get('qr_code_hash')),
+                    ])
+                    ->columns(1)
+                    ->columnSpanFull(),
+
+                Section::make(__('Access and Equipment'))
+                    ->schema([
+                        Repeater::make('locker_key')
+                            ->label(__('Locker Key'))
+                            ->simple(TextInput::make('key')->label(__('Key Number')))
+                            ->addActionLabel(__('Add Locker Key'))
+                            ->reorderable(false)
+                            ->collapsed(false)
+                            ->columnSpanFull(),
                     ])
                     ->columns(1)
                     ->columnSpanFull(),
@@ -216,11 +230,11 @@ class EmployeeForm
                                             ->label(__('Scheduled Status Active'))
                                             ->live()
                                             ->dehydrated(false)
-                                            ->afterStateHydrated(fn($state, $record, $set) => $set('has_scheduled_activation', $record?->scheduled_activation_at !== null)),
+                                            ->afterStateHydrated(fn ($state, $record, $set) => $set('has_scheduled_activation', $record?->scheduled_activation_at !== null)),
                                         DateTimePicker::make('scheduled_activation_at')
                                             ->label(__('Activation Date'))
-                                            ->visible(fn($get) => $get('has_scheduled_activation'))
-                                            ->required(fn($get) => $get('has_scheduled_activation')),
+                                            ->visible(fn ($get) => $get('has_scheduled_activation'))
+                                            ->required(fn ($get) => $get('has_scheduled_activation')),
                                     ]),
                             ]),
 
@@ -228,8 +242,8 @@ class EmployeeForm
                             ->schema([
                                 DateTimePicker::make('scheduled_deactivation_at')
                                     ->label(__('Deactivation Date'))
-                                    ->visible(fn($get) => $get('employment_term') === 'fixed_term')
-                                    ->required(fn($get) => $get('employment_term') === 'fixed_term'),
+                                    ->visible(fn ($get) => $get('employment_term') === 'fixed_term')
+                                    ->required(fn ($get) => $get('employment_term') === 'fixed_term'),
                             ]),
                     ])
                     ->columns(1)
@@ -272,21 +286,21 @@ class EmployeeForm
 
     protected static function generateQrCodeSvg(?string $hash): ?HtmlString
     {
-        if (!$hash) {
+        if (! $hash) {
             return null;
         }
 
         try {
             $renderer = new ImageRenderer(
                 new RendererStyle(200),
-                new SvgImageBackEnd()
+                new SvgImageBackEnd
             );
             $writer = new Writer($renderer);
             $svg = $writer->writeString($hash);
 
-            return new HtmlString('<div class="flex justify-center p-4 bg-white rounded-lg">' . $svg . '</div>');
+            return new HtmlString('<div class="flex justify-center p-4 bg-white rounded-lg">'.$svg.'</div>');
         } catch (\Exception $e) {
-            return new HtmlString('<p class="text-danger">' . __('Error generating QR code') . '</p>');
+            return new HtmlString('<p class="text-danger">'.__('Error generating QR code').'</p>');
         }
     }
 }

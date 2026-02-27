@@ -24,7 +24,7 @@ class EmployeeResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('Employee');
+        return __('Employees');
     }
 
     public static function getPluralModelLabel(): string

@@ -43,7 +43,7 @@ class HrPanelProvider extends PanelProvider
             ->userMenuItems([
                 \Filament\Navigation\MenuItem::make()
                     ->label(__('Settings'))
-                    ->url(fn(): string => \App\Filament\Hr\Pages\Settings::getUrl())
+                    ->url(fn (): string => \App\Filament\Hr\Pages\Settings::getUrl())
                     ->icon('heroicon-o-cog-6-tooth'),
             ])
             ->discoverWidgets(in: app_path('Filament/Hr/Widgets'), for: 'App\\Filament\\Hr\\Widgets')
@@ -60,9 +60,13 @@ class HrPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 \App\Http\Middleware\SetLocale::class,
             ])
+            ->plugins([
+                \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::make()
+                    ->selectable(true),
+            ])
             ->authMiddleware([
                 FilamentAuthenticate::class,
-                EnsureUserHasRole::class . ':' . UserRole::HR->value,
+                EnsureUserHasRole::class.':'.UserRole::HR->value,
             ]);
     }
 }

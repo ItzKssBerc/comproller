@@ -19,6 +19,10 @@ class EmployeesTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label(__('ID'))
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('personalData.last_name')
                     ->label(__('Last Name'))
                     ->sortable()
@@ -37,6 +41,11 @@ class EmployeesTable
                 IconColumn::make('is_active')
                     ->label(__('Active'))
                     ->boolean(),
+                TextColumn::make('locker_key')
+                    ->label(__('Locker Key'))
+                    ->formatStateUsing(fn ($state) => is_array($state) ? implode(', ', $state) : $state)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->label(__('Created at'))
                     ->dateTime()
@@ -48,6 +57,8 @@ class EmployeesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultPaginationPageOption(5)
+            ->paginated([5, 10, 25, 50])
             ->filters([
                 //
             ])
@@ -64,7 +75,7 @@ class EmployeesTable
                         ->deselectRecordsAfterCompletion()
                         ->action(function (Collection $records) {
                             $invalidEmployees = $records->filter(
-                                fn($record) => $record->identification?->identification_device !== 'qr_code'
+                                fn ($record) => $record->identification?->identification_device !== 'qr_code'
                             );
 
                             if ($invalidEmployees->count() > 0) {
@@ -78,6 +89,69 @@ class EmployeesTable
 
                             $ids = $records->pluck('id')->toArray();
                             $url = route('employees.bulk-id-card', ['ids' => $ids]);
+
+                            return redirect()->away($url);
+                        }),
+                    BulkAction::make('printContracts')
+                        ->label(__('Print Contracts'))
+                        ->icon('heroicon-o-document-text')
+                        ->color('success')
+                        ->form([
+                            \Filament\Forms\Components\Select::make('lang')
+                                ->label(__('Language'))
+                                ->options([
+                                    'hu' => 'Magyar',
+                                    'en' => 'English',
+                                ])
+                                ->default(app()->getLocale())
+                                ->required(),
+                            \Filament\Forms\Components\Checkbox::make('dual_copy')
+                                ->label(__('Dual Copy'))
+                                ->default(false),
+                        ])
+                        ->deselectRecordsAfterCompletion()
+                        ->action(function (Collection $records, array $data) {
+                            $ids = $records->pluck('id')->toArray();
+                            $url = route('employees.bulk-contract', [
+                                'ids' => $ids,
+                                'lang' => $data['lang'],
+                                'dual_copy' => $data['dual_copy'],
+                            ]);
+
+                            return redirect()->away($url);
+                        }),
+                    BulkAction::make('printMedicalReferrals')
+                        ->label(__('Print Medical Referrals'))
+                        ->icon('heroicon-o-heart')
+                        ->color('danger')
+                        ->form([
+                            \Filament\Forms\Components\Select::make('lang')
+                                ->label(__('Language'))
+                                ->options([
+                                    'hu' => 'Magyar',
+                                    'en' => 'English',
+                                ])
+                                ->default(app()->getLocale())
+                                ->required(),
+                            \Filament\Forms\Components\Select::make('type')
+                                ->label(__('Examination Type'))
+                                ->options([
+                                    'New Hire' => __('New Hire'),
+                                    'Periodic' => __('Periodic'),
+                                    'Extraordinary' => __('Extraordinary'),
+                                    'Final' => __('Final'),
+                                ])
+                                ->default('New Hire')
+                                ->required(),
+                        ])
+                        ->deselectRecordsAfterCompletion()
+                        ->action(function (Collection $records, array $data) {
+                            $ids = $records->pluck('id')->toArray();
+                            $url = route('employees.bulk-medical-referral', [
+                                'ids' => $ids,
+                                'lang' => $data['lang'],
+                                'type' => $data['type'],
+                            ]);
 
                             return redirect()->away($url);
                         }),

@@ -79,5 +79,18 @@
     "QR Code Hash": "QR Code Hash",
     "QR Code Preview": "QR Code Preview",
     "Error generating QR code": "Error generating QR code",
-    "Device Identifier": "Device Identifier"
+    "Device Identifier": "Device Identifier",
+    "Locker Key": "Locker Key",
+    "Access and Equipment": "Access and Equipment",
+    "Add Locker Key": "Add Locker Key",
+    "Key Number": "Key Number",
+    "Lost Key": "Lost Key",
+    "Lost RFID Card": "Lost RFID Card",
+    "Lost QR Card": "Lost QR Card",
+    "Other Reason": "Other Reason",
+    "Deductions": "Deductions",
+    "Total Deductions": "Total Deductions",
+    "Un-processed Penalties": "Un-processed Penalties",
+    "Add Penalty": "Add Penalty",
+    "Create Penalty": "Create Penalty"
 }

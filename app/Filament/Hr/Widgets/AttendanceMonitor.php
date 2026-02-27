@@ -34,10 +34,12 @@ class AttendanceMonitor extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('employee.id')
-                    ->label('ID'),
+                    ->label(__('ID'))
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('employee.personalData.last_name')
                     ->label(__('Last Name'))
-                    ->formatStateUsing(fn ($record) => ($record->employee?->personalData?->last_name ?? '') . ' ' . ($record->employee?->personalData?->first_name ?? '')),
+                    ->formatStateUsing(fn ($record) => ($record->employee?->personalData?->last_name ?? '').' '.($record->employee?->personalData?->first_name ?? '')),
                 Tables\Columns\TextColumn::make('clock_in_at')
                     ->label(__('Clock In'))
                     ->dateTime('H:i')
@@ -46,16 +48,6 @@ class AttendanceMonitor extends BaseWidget
                     ->label(__('Clock Out'))
                     ->dateTime('H:i')
                     ->placeholder('-'),
-                Tables\Columns\IconColumn::make('status')
-                    ->label(__('Status'))
-                    ->getStateUsing(fn ($record) => $record->clock_out_at === null)
-                    ->boolean()
-                    ->trueIcon('heroicon-o-check-circle')
-                    ->falseIcon('heroicon-o-minus-circle')
-                    ->trueColor('success')
-                    ->falseColor('gray'),
-                Tables\Columns\ToggleColumn::make('is_processed')
-                    ->label(__('Processed')),
             ])
             ->paginated([5]);
     }

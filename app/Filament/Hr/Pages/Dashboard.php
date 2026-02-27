@@ -11,6 +11,11 @@ class Dashboard extends BaseDashboard
         return __('Information');
     }
 
+    public function getColumns(): int|array
+    {
+        return 2;
+    }
+
     public function getWidgets(): array
     {
         return [
