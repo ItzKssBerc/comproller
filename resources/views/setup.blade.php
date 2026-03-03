@@ -27,18 +27,12 @@
 <body class="h-full dark:bg-slate-900 transition-colors duration-500">
     <div class="flex min-h-full">
         <!-- Left Side: Branding & Info -->
-        <div class="relative hidden w-0 flex-1 lg:block">
-            <img class="absolute inset-0 h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
-                alt="Office background">
-            <div
-                class="absolute inset-0 bg-gradient-to-br from-slate-900/90 to-amber-900/80 mix-blend-multiply dark:from-black dark:to-amber-950/90 transition-colors duration-500">
-            </div>
+        <div class="relative hidden w-0 flex-1 lg:block bg-aurora">
             <div class="absolute inset-0 flex flex-col justify-between p-12 text-white">
                 <div>
                     <div class="flex items-center gap-3">
-                        <div class="rounded-lg bg-amber-500/20 p-2 backdrop-blur-sm">
-                            <svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        <div class="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+                            <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
@@ -50,9 +44,12 @@
                     </div>
                 </div>
                 <div>
-                    <h2 class="text-4xl font-bold tracking-tight mb-4">{{ __('Welcome to the system') }}</h2>
-                    <p class="text-lg text-slate-200 max-w-md">
-                        {{ __('Setup the first Application profile to start the Comproller financial controller system.') }}
+                    <h2 id="typewriter" data-text-hu="{{ __('Welcome to the system') }}"
+                        data-text-en="Welcome to the system"
+                        class="text-4xl font-bold tracking-tight mb-4 min-h-[1.2em]"></h2>
+                    <p class="text-lg text-white/90 max-w-md">
+                        {{ __('Setup the first Application profile to start the Comproller financial controller
+                        system.') }}
                     </p>
                 </div>
                 <div class="text-sm text-slate-400">
@@ -69,9 +66,9 @@
                 <!-- Language Switcher -->
                 <div class="flex gap-2">
                     <a href="{{ route('lang.switch', 'hu') }}"
-                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'hu' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">HU</a>
+                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'hu' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">HU</a>
                     <a href="{{ route('lang.switch', 'en') }}"
-                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'en' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">EN</a>
+                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'en' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">EN</a>
                 </div>
 
                 <!-- Theme Switcher -->
@@ -92,125 +89,131 @@
 
             <div class="mx-auto w-full max-w-sm lg:w-96 animate-fade-in-up">
                 @if(isset($show2Fa) && $show2Fa)
-                    <div>
-                        <h2
-                            class="mt-4 text-2xl font-bold leading-9 tracking-tight text-slate-900 dark:text-white transition-colors">
-                            {{ __('Two-Factor Authentication') }}
-                        </h2>
-                        <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400 transition-colors">
-                            {{ __('Scan the QR code below with your authenticator app (e.g. Google Authenticator) and enter the 6-digit code to finish setup.') }}
-                        </p>
-                    </div>
+                <div>
+                    <h2
+                        class="mt-4 text-2xl font-bold leading-9 tracking-tight text-slate-900 dark:text-white transition-colors">
+                        {{ __('Two-Factor Authentication') }}
+                    </h2>
+                    <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400 transition-colors">
+                        {{ __('Scan the QR code below with your authenticator app (e.g. Google Authenticator) and enter
+                        the 6-digit code to finish setup.') }}
+                    </p>
+                </div>
 
+                <div
+                    class="mt-4 flex justify-center bg-white p-3 rounded-xl shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700">
                     <div
-                        class="mt-4 flex justify-center bg-white p-3 rounded-xl shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700">
-                        <div
-                            class="w-48 h-48 sm:w-56 sm:h-56 overflow-hidden flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full">
-                            {!! $qrCodeSvg !!}
+                        class="w-48 h-48 sm:w-56 sm:h-56 overflow-hidden flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full">
+                        {!! $qrCodeSvg !!}
+                    </div>
+                </div>
+
+                <div class="mt-3 text-center">
+                    <p
+                        class="text-sm font-mono text-slate-500 dark:text-slate-400 break-all bg-slate-100 dark:bg-slate-800 p-2 rounded">
+                        {{ $secret }}</p>
+                </div>
+
+                <div class="mt-6">
+                    <form action="{{ route('setup.2fa.verify') }}" method="POST" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label for="one_time_password"
+                                class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{
+                                __('Authentication Code') }}</label>
+                            <div class="mt-1">
+                                <input id="one_time_password" name="one_time_password" type="text" inputmode="numeric"
+                                    required
+                                    class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200 text-center tracking-widest font-mono"
+                                    placeholder="000000" maxlength="6" autofocus>
+                                @error('one_time_password')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mt-3 text-center">
-                        <p
-                            class="text-sm font-mono text-slate-500 dark:text-slate-400 break-all bg-slate-100 dark:bg-slate-800 p-2 rounded">
-                            {{ $secret }}</p>
-                    </div>
-
-                    <div class="mt-6">
-                        <form action="{{ route('setup.2fa.verify') }}" method="POST" class="space-y-4">
-                            @csrf
-                            <div>
-                                <label for="one_time_password"
-                                    class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{ __('Authentication Code') }}</label>
-                                <div class="mt-1">
-                                    <input id="one_time_password" name="one_time_password" type="text" inputmode="numeric"
-                                        required
-                                        class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200 text-center tracking-widest font-mono"
-                                        placeholder="000000" maxlength="6" autofocus>
-                                    @error('one_time_password')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div>
-                                <button type="submit"
-                                    class="flex w-full justify-center rounded-md bg-amber-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-all duration-200 transform hover:scale-[1.01] active:scale-95">
-                                    {{ __('Verify & Login') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div>
+                            <button type="submit"
+                                class="flex w-full justify-center rounded-md bg-amber-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-all duration-200 transform hover:scale-[1.01] active:scale-95">
+                                {{ __('Verify & Login') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 @else
-                    <div>
-                        <h2
-                            class="mt-8 text-2xl font-bold leading-9 tracking-tight text-slate-900 dark:text-white transition-colors">
-                            {{ __('Create Application Profile') }}
-                        </h2>
-                        <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400 transition-colors">
-                            {{ __('Please fill in the details to proceed.') }}
-                        </p>
-                    </div>
+                <div>
+                    <h2
+                        class="mt-8 text-2xl font-bold leading-9 tracking-tight text-slate-900 dark:text-white transition-colors">
+                        {{ __('Create Application Profile') }}
+                    </h2>
+                    <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400 transition-colors">
+                        {{ __('Please fill in the details to proceed.') }}
+                    </p>
+                </div>
 
-                    <div class="mt-10">
-                        <form action="{{ route('setup.store') }}" method="POST" class="space-y-6">
-                            @csrf
+                <div class="mt-10">
+                    <form action="{{ route('setup.store') }}" method="POST" class="space-y-6">
+                        @csrf
 
-                            <div>
-                                <label for="name"
-                                    class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{ __('Company Name') }}</label>
-                                <div class="mt-2">
-                                    <input id="name" name="name" type="text" autocomplete="organization" required
-                                        class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200"
-                                        placeholder="{{ __('E.g. Company Ltd') }}" value="{{ old('name') }}">
-                                    @error('name')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                        <div>
+                            <label for="name"
+                                class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{
+                                __('Company Name') }}</label>
+                            <div class="mt-2">
+                                <input id="name" name="name" type="text" autocomplete="organization" required
+                                    class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200"
+                                    placeholder="{{ __('E.g. Company Ltd') }}" value="{{ old('name') }}">
+                                @error('name')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div>
-                                <label for="email"
-                                    class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{ __('Email Address') }}</label>
-                                <div class="mt-2">
-                                    <input id="email" name="email" type="email" autocomplete="email" required
-                                        class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200"
-                                        placeholder="{{ __('admin@company.com') }}" value="{{ old('email') }}">
-                                    @error('email')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                        <div>
+                            <label for="email"
+                                class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{
+                                __('Email Address') }}</label>
+                            <div class="mt-2">
+                                <input id="email" name="email" type="email" autocomplete="email" required
+                                    class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200"
+                                    placeholder="{{ __('admin@company.com') }}" value="{{ old('email') }}">
+                                @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div>
-                                <label for="password"
-                                    class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{ __('Password') }}</label>
-                                <div class="mt-2">
-                                    <input id="password" name="password" type="password" required
-                                        class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200">
-                                    @error('password')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                        <div>
+                            <label for="password"
+                                class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{
+                                __('Password') }}</label>
+                            <div class="mt-2">
+                                <input id="password" name="password" type="password" required
+                                    class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200">
+                                @error('password')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div>
-                                <label for="password_confirmation"
-                                    class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{ __('Confirm Password') }}</label>
-                                <div class="mt-2">
-                                    <input id="password_confirmation" name="password_confirmation" type="password" required
-                                        class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 transition-all duration-200">
-                                </div>
+                        <div>
+                            <label for="password_confirmation"
+                                class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-300">{{
+                                __('Confirm Password') }}</label>
+                            <div class="mt-2">
+                                <input id="password_confirmation" name="password_confirmation" type="password" required
+                                    class="block w-full rounded-md border-0 py-2.5 px-3 text-slate-900 dark:text-white bg-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all duration-200">
                             </div>
+                        </div>
 
-                            <div>
-                                <button type="submit"
-                                    class="flex w-full justify-center rounded-md bg-amber-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-all duration-200 transform hover:scale-[1.01] active:scale-95">
-                                    {{ __('Create Account & Login') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div>
+                            <button type="submit"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-200 transform hover:scale-[1.01] active:scale-95">
+                                {{ __('Create Account & Login') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 @endif
             </div>
         </div>

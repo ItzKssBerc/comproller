@@ -14,4 +14,29 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    @keyframes aurora {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes blink {
+        from, to { opacity: 0 }
+        50% { opacity: 1 }
+    }
+}
+
+@layer utilities {
+    .bg-aurora {
+        background: linear-gradient(135deg, #1a237e, #00796b);
+        background-size: 400% 400%;
+        animation: aurora 15s ease infinite;
+    }
+
+    .cursor-blink::after {
+        content: '|';
+        animation: blink 0.75s step-end infinite;
+        @apply text-white ml-0.5;
+    }
 }

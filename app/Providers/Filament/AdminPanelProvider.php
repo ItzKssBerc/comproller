@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Auth\MultiFactor\Google2FaAuthenticationProvider::make(),
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
@@ -56,7 +56,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 FilamentAuthenticate::class,
-                EnsureUserHasRole::class . ':' . UserRole::Admin->value,
+                EnsureUserHasRole::class.':'.UserRole::Admin->value,
             ]);
     }
 }

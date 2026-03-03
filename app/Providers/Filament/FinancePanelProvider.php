@@ -33,7 +33,7 @@ class FinancePanelProvider extends PanelProvider
                 \App\Filament\Auth\MultiFactor\Google2FaAuthenticationProvider::make(),
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Finance/Resources'), for: 'App\\Filament\\Finance\\Resources')
             ->discoverPages(in: app_path('Filament/Finance/Pages'), for: 'App\\Filament\\Finance\\Pages')
@@ -56,7 +56,7 @@ class FinancePanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 FilamentAuthenticate::class,
-                EnsureUserHasRole::class . ':' . UserRole::Finance->value,
+                EnsureUserHasRole::class.':'.UserRole::Finance->value,
             ]);
     }
 }

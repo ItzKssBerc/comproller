@@ -13,7 +13,6 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
-use App\Filament\App\Widgets\AccountWidget;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -37,7 +36,7 @@ class AppPanelProvider extends PanelProvider
                 \App\Filament\Auth\MultiFactor\Google2FaAuthenticationProvider::make(),
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
@@ -47,7 +46,7 @@ class AppPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label(__('Settings'))
-                    ->url(fn(): string => Settings::getUrl())
+                    ->url(fn (): string => Settings::getUrl())
                     ->icon('heroicon-o-cog-6-tooth'),
                 'profile' => MenuItem::make()->visible(false),
             ])
@@ -66,7 +65,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                EnsureUserHasRole::class . ':' . UserRole::App->value,
+                EnsureUserHasRole::class.':'.UserRole::App->value,
             ]);
     }
 }

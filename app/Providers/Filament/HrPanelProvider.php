@@ -33,7 +33,7 @@ class HrPanelProvider extends PanelProvider
                 \App\Filament\Auth\MultiFactor\Google2FaAuthenticationProvider::make(),
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Hr/Resources'), for: 'App\\Filament\\Hr\\Resources')
             ->discoverPages(in: app_path('Filament/Hr/Pages'), for: 'App\\Filament\\Hr\\Pages')

@@ -1,5 +1,5 @@
 @props([
-    'livewire' => null,
+'livewire' => null,
 ])
 
 <!DOCTYPE html>
@@ -23,25 +23,21 @@
         }
     </script>
     <style>
-        body { font-family: 'Instrument Sans', sans-serif; }
+        body {
+            font-family: 'Instrument Sans', sans-serif;
+        }
     </style>
 </head>
 
 <body class="h-full dark:bg-slate-900 transition-colors duration-500">
     <div class="flex min-h-full">
         <!-- Left Side: Branding & Info -->
-        <div class="relative hidden w-0 flex-1 lg:block">
-            <img class="absolute inset-0 h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
-                alt="Office background">
-            <div
-                class="absolute inset-0 bg-gradient-to-br from-slate-900/90 to-amber-900/80 mix-blend-multiply dark:from-black dark:to-amber-950/90 transition-colors duration-500">
-            </div>
+        <div class="relative hidden w-0 flex-1 lg:block bg-aurora">
             <div class="absolute inset-0 flex flex-col justify-between p-12 text-white">
                 <div>
                     <div class="flex items-center gap-3">
-                        <div class="rounded-lg bg-amber-500/20 p-2 backdrop-blur-sm">
-                            <svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        <div class="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+                            <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
@@ -53,9 +49,12 @@
                     </div>
                 </div>
 
-                                        <div>
-                    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-sm">{{ __('Welcome to the system') }}</h2>
-                    <p class="text-lg sm:text-xl text-slate-100 max-w-md leading-relaxed opacity-90">
+                <div>
+                    <h2 id="typewriter" data-text-hu="{{ __('Welcome to the system') }}"
+                        data-text-en="Welcome to the system"
+                        class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-sm min-h-[1.2em]">
+                    </h2>
+                    <p class="text-lg sm:text-xl text-white/90 max-w-md leading-relaxed opacity-90">
                         {{ __('Manage your company finances with ease and precision.') }}
                     </p>
                 </div>
@@ -73,9 +72,9 @@
                 <!-- Language Switcher -->
                 <div class="flex gap-2">
                     <a href="{{ route('lang.switch', 'hu') }}"
-                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'hu' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">HU</a>
+                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'hu' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">HU</a>
                     <a href="{{ route('lang.switch', 'en') }}"
-                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'en' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">EN</a>
+                        class="px-3 py-1.5 text-sm font-medium rounded-md transition-all {{ app()->getLocale() === 'en' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-500' : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800' }}">EN</a>
                 </div>
 
                 <!-- Theme Switcher -->
@@ -132,4 +131,5 @@
     @filamentScripts
     @stack('scripts')
 </body>
+
 </html>

@@ -33,7 +33,7 @@ class CameraPanelProvider extends PanelProvider
                 \App\Filament\Auth\MultiFactor\Google2FaAuthenticationProvider::make(),
             ])
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Camera/Resources'), for: 'App\\Filament\\Camera\\Resources')
             ->discoverPages(in: app_path('Filament/Camera/Pages'), for: 'App\\Filament\\Camera\\Pages')
@@ -56,7 +56,7 @@ class CameraPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 FilamentAuthenticate::class,
-                EnsureUserHasRole::class . ':' . UserRole::Camera->value,
+                EnsureUserHasRole::class.':'.UserRole::Camera->value,
             ]);
     }
 }
