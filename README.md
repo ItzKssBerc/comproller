@@ -1,81 +1,82 @@
-<div align="center">
-
 # 💼 Comproller
 
-**The Modern HR & Payroll Management System**  
-*Built for speed, aesthetics, and enterprise-grade reliability.*
-
-[![PHP Version](https://img.shields.io/badge/PHP-8.5%2B-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
-[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
-[![Filament Version](https://img.shields.io/badge/Filament-v5-FFA116?style=flat-square&logo=filament&logoColor=white)](https://filamentphp.com)
-[![Tailwind Version](https://img.shields.io/badge/Tailwind--CSS-v4-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+> **Modern HR & Payroll Management System**  
+> Built for speed, aesthetics, and enterprise-grade reliability.
 
 ---
 
-</div>
+## ✨ Overview
 
-## 🌐 System Architecture
+Comproller is a modular HR & payroll platform built with modern Laravel architecture and a strong focus on:
 
-Comproller maintains a modular, high-security ecosystem. Below is a high-level overview of our specialized panels:
+- 🔒 Security-first design  
+- ⚡ High performance  
+- 🎨 Clean, enterprise UI  
+- 🧩 Scalable modular structure  
 
-```mermaid
-graph TD
-    User((User)) --> Gateway{Authentication}
-    Gateway -- Indigo Theme --> Admin[Admin Panel]
-    Gateway -- Indigo Theme --> HR[HR Panel]
-    Gateway -- Indigo Theme --> Finance[Finance Panel]
-    Gateway -- Indigo Theme --> Camera[Camera Panel]
-    
-    subgraph Core
-        Admin --- DB[(Database)]
-        HR --- DB
-        Finance --- DB
-        Camera --- DB
-    end
+---
 
-    subgraph Security
-        Gateway --- MFA[Multi-Factor Auth]
-        Gateway --- Roles[Role Based Access]
-    end
-```
+## 🏗️ Architecture
 
-## 💎 Key Features
+Comproller operates through isolated role-based panels:
 
-| Feature | Description | Highlight |
-| :--- | :--- | :--- |
-| **Aurora UI** | Dynamic Indigo & Teal animated gradients. | ✨ Modern |
-| **Typewriter** | Smooth character-by-character text entrance. | ⌨️ Interactive |
-| **MFA Security** | Google Authenticator integration for all roles. | 🔒 Secure |
-| **Modular Panels** | Separate contexts for HR, Finance, and Admin. | 🧩 Scalable |
-| **Smart PDF** | Bulk generation for contracts and ID cards. | 📄 Efficient |
+- **Admin Panel**
+- **HR Panel**
+- **Finance Panel**
+- **Camera Panel**
 
-## 🛠️ Tech Stack
+All panels share a centralized authentication gateway with:
 
-### 🏗️ Infrastructure
-- **Framework:** Laravel 12+ (Latest)
-- **Database:** PostgreSQL / MySQL / SQLite
-- **Runtime:** PHP 8.5+
+- Multi-Factor Authentication (MFA)
+- Role-Based Access Control (RBAC)
+- Unified database core
 
-### 🎨 Frontend & UI
-- **Admin Engine:** Filament v5
-- **Reactivity:** Livewire 3
-- **Styling:** Tailwind CSS v4-beta (Ultra-fast)
-- **Design:** Glassmorphism & Aurora Gradients
+---
 
-## 📦 Installation & Quick Start
+## 💎 Core Features
+
+### 🎨 Aurora UI
+Dynamic Indigo & Teal gradient-based interface with modern glass styling.
+
+### 🔐 Multi-Factor Authentication
+Google Authenticator integration across all system roles.
+
+### 🧩 Modular Panel System
+Separated contexts for Admin, HR, Finance, and Camera operations.
+
+### 📄 Smart PDF Engine
+Bulk contract and ID generation.
+
+### ⌨️ Typewriter Effects
+Smooth animated UI text transitions.
+
+---
+
+## 🛠 Tech Stack
+
+### Backend
+- **Laravel 12+**
+- **PHP 8.5+**
+- PostgreSQL / MySQL / SQLite
+
+### Admin & UI
+- **Filament v5**
+- **Livewire 3**
+- **Tailwind CSS v4**
+
+---
+
+## 🚀 Installation
 
 ```bash
-# 1. Clone & Enter
-git clone https://github.com/ItzKssBerc/comproller.git && cd comproller
-
-# 2. Automated Setup
-# Installs dependencies, sets up the database, and builds assets.
+git clone https://github.com/ItzKssBerc/comproller.git
+cd comproller
 composer setup
 ```
 
-## 👨‍💻 Development
+---
 
-To start the local development environment:
+## 🧪 Development
 
 ```bash
 composer dev
@@ -83,16 +84,22 @@ composer dev
 
 ---
 
-<div align="center">
+## 🔐 Security Philosophy
 
-Made with ❤️ by **Kiss Bercel**  
-*Innovating HR management, one line of code at a time.*
+Comproller is built around:
 
-</div>
+- Principle of least privilege  
+- Strict role isolation  
+- MFA by default  
+- Enterprise-grade authentication flow  
 
 ---
 
-<p align="center">
-  Made with ❤️ by <strong>Kiss Bercel</strong><br>
-  <em>Innovating HR management, one line of code at a time.</em>
-</p>
+## 👨‍💻 Author
+
+**Kiss Bercel**  
+_Innovating HR management, one line of code at a time._
+
+---
+
+⭐ If you find this project useful, consider starring the repository.
