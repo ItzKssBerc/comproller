@@ -17,10 +17,12 @@ class Login2FaTest extends TestCase
     {
         $google2fa = app('pragmarx.google2fa');
 
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'Admin User',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
             'google2fa_secret' => $google2fa->generateSecretKey(),
+            'role' => \App\Enums\UserRole::Admin,
         ]);
 
         Livewire::test(Login::class)
@@ -40,10 +42,12 @@ class Login2FaTest extends TestCase
         $google2fa = app('pragmarx.google2fa');
         $secret = $google2fa->generateSecretKey();
 
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'Admin User',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
             'google2fa_secret' => $secret,
+            'role' => \App\Enums\UserRole::Admin,
         ]);
 
         $validCode = $google2fa->getCurrentOtp($secret);
@@ -67,10 +71,12 @@ class Login2FaTest extends TestCase
     {
         $google2fa = app('pragmarx.google2fa');
 
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'Admin User',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
             'google2fa_secret' => $google2fa->generateSecretKey(),
+            'role' => \App\Enums\UserRole::Admin,
         ]);
 
         Livewire::test(Login::class)

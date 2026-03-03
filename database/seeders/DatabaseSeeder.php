@@ -15,12 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            EmployeeSeeder::class,
+            AttendanceSeeder::class,
+        ]);
 
         if (User::count() === 0) {
-            User::factory()->create([
+            User::create([
                 'name' => 'Admin User',
                 'email' => 'admin@example.com',
+                'password' => \Illuminate\Support\Facades\Hash::make('password'),
                 'role' => \App\Enums\UserRole::Admin,
             ]);
         }

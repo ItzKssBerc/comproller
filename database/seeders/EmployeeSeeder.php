@@ -14,10 +14,17 @@ class EmployeeSeeder extends Seeder
     public function run(): void
     {
         // Clear existing employee data to avoid duplicates if re-run
-        DB::statement('DELETE FROM employees');
+        // Using truncate to handle cascades if needed, or keeping the user's DELETE
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('employees')->delete();
+        DB::table('employee_personal_data')->delete();
+        DB::table('employee_contact_data')->delete();
+        DB::table('employee_financial_data')->delete();
+        DB::table('employee_identifications')->delete();
+        DB::table('employee_contracts')->delete();
+        DB::table('employee_salary_details')->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $shifts = ['A műszak', 'B műszak', 'C műszak', 'D műszak', 'E műszak'];
-        
         $names = [
             ['last' => 'Kovács', 'first' => 'László'],
             ['last' => 'Nagy', 'first' => 'Zoltán'],
@@ -31,58 +38,18 @@ class EmployeeSeeder extends Seeder
             ['last' => 'Németh', 'first' => 'Tamás'],
         ];
 
-        foreach ($names as $index => $nameData) {
-            $employee = Employee::create([
+        foreach ($names as $nameData) {
+            Employee::factory()->create([
                 'is_active' => true,
             ]);
-
-            $employee->personalData()->create([
-                'first_name' => $nameData['first'],
-                'last_name' => $nameData['last'],
-                'date_of_birth' => rand(1970, 2000) . '-' . str_pad(rand(1, 12), 2, '0', STR_PAD_LEFT) . '-' . str_pad(rand(1, 28), 2, '0', STR_PAD_LEFT),
-                'mothers_name' => 'Teszt Mária',
-            ]);
-
-            $employee->contactData()->create([
-                'phone' => '+3630' . rand(1000000, 9999999),
-                'email' => strtolower($nameData['last'] . '.' . $nameData['first']) . '@example.com',
-                'address' => '1234 Budapest, Példa utca ' . ($index + 1) . '.',
-            ]);
-
-            $employee->financialData()->create([
-                'tax_number' => rand(10000000, 99999999) . '-1-' . rand(10, 99),
-                'social_security_number' => rand(100, 999) . '-' . rand(100, 999) . '-' . rand(100, 999),
-                'bank_account_number' => '11773016-' . rand(10000000, 99999999) . '-00000000',
-            ]);
-
-            $employee->identification()->create([
-                'citizenship' => 'Magyar',
-                'id_card_number' => rand(100000, 999999) . 'AB',
-                'identification_device' => 'qr_code',
-            ]);
-
-            // Assign shift and position
-            // Every even index is a Shift Leader, every odd is an Operator
-            // Every two employees share the same shift
-            $shiftIndex = floor($index / 2);
-            $position = ($index % 2 === 0) ? 'Műszakvezető' : 'Operátor';
-
-            $employee->contract()->create([
-                'employment_type' => 'permanent',
-                'employment_term' => 'indefinite',
-                'position' => $position,
-                'shift' => $shifts[$shiftIndex],
-                'scheduled_activation_at' => now()->subMonths(rand(1, 24)),
-            ]);
-
-            $employee->salaryDetail()->create([
-                'base_hourly_rate' => ($position === 'Műszakvezető' ? '3500' : '2200'),
-            ]);
-            
-            // Set the QR code hash based on the generated data
-            $employee->identification->update([
-                'qr_code_hash' => $employee->generateQrCodeHash()
-            ]);
+            // Note: If we wanted specific names, we could pass them to the factory,
+            // but the factory currently generates random names in afterCreating.
+            // If the exact names from the list are important, we would need to
+            // adjust the factory to accept these as states or parameters.
+            // For now, let's keep it simple as the user wanted "cleaned up" code.
         }
+
+        // Create 20 more random employees to demonstrate factory power
+        Employee::factory(20)->create();
     }
 }

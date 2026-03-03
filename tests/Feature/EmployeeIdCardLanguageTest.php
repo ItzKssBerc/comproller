@@ -15,7 +15,12 @@ class EmployeeIdCardLanguageTest extends TestCase
 
     public function test_bulk_id_card_page_renders_current_language()
     {
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'role' => \App\Enums\UserRole::Admin,
+        ]);
 
         $employee = Employee::create(['is_active' => true]);
         EmployeePersonalData::create([
@@ -44,7 +49,12 @@ class EmployeeIdCardLanguageTest extends TestCase
 
     public function test_single_id_card_page_respects_lang_parameter()
     {
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'role' => \App\Enums\UserRole::Admin,
+        ]);
 
         $employee = Employee::create(['is_active' => true]);
         EmployeePersonalData::create([

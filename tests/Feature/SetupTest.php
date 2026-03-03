@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SetupTest extends TestCase
@@ -67,7 +66,12 @@ class SetupTest extends TestCase
 
     public function test_setup_page_redirects_if_user_already_exists(): void
     {
-        \App\Models\User::factory()->create();
+        \App\Models\User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'role' => \App\Enums\UserRole::Admin,
+        ]);
 
         $response = $this->get('/setup');
 

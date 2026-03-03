@@ -4,14 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasName;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements HasName
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +49,7 @@ class User extends Authenticatable implements HasName
             'google2fa_secret' => 'encrypted',
         ];
     }
+
     public function getFilamentName(): string
     {
         if ($this->role === \App\Enums\UserRole::App) {
