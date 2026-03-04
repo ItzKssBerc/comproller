@@ -11,7 +11,8 @@ class CompanySettings
     {
         try {
             return cache()->remember('company_name', now()->addHour(), fn() => User::where('role', UserRole::App->value)->value('name') ?? $fallback) ?? $fallback;
-        } catch (\Throwable) {
+        }
+        catch (\Throwable) {
             return $fallback;
         }
     }
